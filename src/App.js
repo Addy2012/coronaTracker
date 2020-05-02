@@ -1,39 +1,31 @@
-import React, {Component} from 'react';
+import React,{Component} from 'react';
 import './App.css';
-import CardList from "./components/card-list/card-list";
-import Searchbox from './components/searchbox/searchbox';
-
-class App extends Component{
-  constructor(){
-    super();
-    this.state={
-      monsters:[],
-      searchField:""
-    }
+import Cards from './components/Cards/Cards';
+import Chart from './components/Chart/Chart'
+import CountryPicker from './components/CountryPicker/CountryPicker';
+import {fetchData} from './api/getAPI'
+class App extends Component {
+  state={
+    data:{},
+    country:''
   }
-
-  componentDidMount(){
-  fetch('https://jsonplaceholder.typicode.com/users')
-  .then(response => response.json())
-  .then(users => this.setState({monsters:users}))
+  async componentDidMount(){
+    const fetchedData = await fetchData();
+    this.setState({data:fetchedData})
   }
-  handleChange=(e)=>{
-    this.setState({
-      searchField:e.target.value
-    })
-  }
+  handleCountryChange = async (country) => {
+    const fetchedData = await fetchData(country);
 
-  render(){
-    const { monsters , searchField } = this.state;
-    const filteredMonster=monsters.filter(monster=>monster.name.toLowerCase().includes(searchField.toLowerCase()))
-    return(
-      (
-        <div className="App">
-          <h1>Monster's house</h1>
-          <Searchbox type="search" placeholder="Search monster" handleChange={this.handleChange} />
-          <CardList monsters={filteredMonster}/>
-        </div>
-      )
+    this.setState({ data : fetchedData, country : country })
+  }
+  render(){ 
+    const { data, country }=this.state
+    return (
+      <div className="container">
+        <Cards data={data}/>
+        <CountryPicker handleCountryChange={this.handleCountryChange}/>
+        <Chart data={data} country={country} />
+      </div>
     )
   }
 }
