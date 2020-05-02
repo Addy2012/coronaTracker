@@ -8,12 +8,15 @@
 
 .infected {
     border-bottom: 10px solid rgba(0, 0, 255, 0.5);
+    background: linear-gradient(to top right, #ffff99 0%, #0033cc 100%);
 }
 
 .recovered {
     border-bottom: 10px solid rgba(0, 255, 0, 0.5);
+    background: linear-gradient(to top right, #ffff99 0%, #00cc00 100%);
 }
 
 .deaths {
     border-bottom: 10px solid rgba(255, 0, 0, 0.5);
+    background: linear-gradient(to top right, #ffff99 0%, #990033 100%);
 }

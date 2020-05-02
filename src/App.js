@@ -3,7 +3,8 @@ import './App.css';
 import Cards from './components/Cards/Cards';
 import Chart from './components/Chart/Chart'
 import CountryPicker from './components/CountryPicker/CountryPicker';
-import {fetchData} from './api/getAPI'
+import {fetchData} from './api/getAPI';
+
 class App extends Component {
   state={
     data:{},
@@ -22,8 +23,9 @@ class App extends Component {
     const { data, country }=this.state
     return (
       <div className="container">
+        <h3 className="siteName">Addy Corona Tracker</h3>
         <Cards data={data}/>
-        <CountryPicker handleCountryChange={this.handleCountryChange}/>
+        <CountryPicker className="country" handleCountryChange={this.handleCountryChange}/>
         <Chart data={data} country={country} />
       </div>
     )
