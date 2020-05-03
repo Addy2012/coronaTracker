@@ -4,7 +4,11 @@ const url="https://covid19.mathdro.id/api";
 
 export const fetchData= async(country)=>{
     let changeableurl = url;
-    if(country){
+    let check=(country==="global");
+    if(country&&check){
+        changeableurl=url;
+    }
+    else if(country){
         changeableurl=`${url}/countries/${country}`
     }
     try {
@@ -35,7 +39,6 @@ export const fetchCountries = async ()=>{
         const { data : {countries} } = await Axios.get(`${url}/countries`)
         
         return countries.map((country) => country.name)
-        // console.log(response)
     } catch (error) {
         console.log(error)
     }
